@@ -4,11 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>byyteDEV</title>
-  <base href="./">
-
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet" />
-
   <style>
     html, body {
       margin: 0;
@@ -36,6 +32,7 @@
     }
     .minecraft-title {
       position: relative;
+      display: inline-block;
       text-align: center;
       z-index: 1;
     }
@@ -43,7 +40,6 @@
       font-size: 48px;
       margin: 0;
       font-weight: normal;
-      color: white;
     }
     .minecraft-title .splash {
       position: absolute;
@@ -59,9 +55,7 @@
   </style>
 </head>
 <body>
-
   <canvas id="shader-background"></canvas>
-
   <div class="minecraft-title">
     <h1>byyte's room</h1>
     <span class="splash">10x More Awesome!</span>
@@ -74,18 +68,20 @@
     canvas.height = window.innerHeight;
     const sandbox = new GlslCanvas(canvas);
 
-    // Minimal sample shader (replace with your full shader)
+    // Minimal working shader
     const fragShader = `
       precision mediump float;
       uniform float iTime;
       uniform vec2 iResolution;
+
       void main() {
         vec2 uv = gl_FragCoord.xy / iResolution.xy;
-        gl_FragColor = vec4(0.5 + 0.5*cos(iTime+uv.xyx+vec3(0,2,4)), 1.0);
+        vec3 col = 0.5 + 0.5*cos(iTime + uv.xyx + vec3(0,2,4));
+        gl_FragColor = vec4(col, 1.0);
       }
     `;
+
     sandbox.load(fragShader);
   </script>
-
 </body>
 </html>
