@@ -10,31 +10,20 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
       font-family: 'DM Serif Display', serif;
       color: white;
+      background-color: #87CEFA; /* Light blue background */
     }
     body {
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
       height: 100vh;
-    }
-    canvas#shader-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-      display: block;
     }
     .minecraft-title {
       position: relative;
       display: inline-block;
       text-align: center;
-      z-index: 1;
     }
     .minecraft-title h1 {
       font-size: 48px;
@@ -55,33 +44,9 @@
   </style>
 </head>
 <body>
-  <canvas id="shader-background"></canvas>
   <div class="minecraft-title">
     <h1>byyte's room</h1>
     <span class="splash">10x More Awesome!</span>
   </div>
-
-  <script src="https://unpkg.com/glslCanvas@latest"></script>
-  <script>
-    const canvas = document.getElementById('shader-background');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    const sandbox = new GlslCanvas(canvas);
-
-    // Minimal working shader
-    const fragShader = `
-      precision mediump float;
-      uniform float iTime;
-      uniform vec2 iResolution;
-
-      void main() {
-        vec2 uv = gl_FragCoord.xy / iResolution.xy;
-        vec3 col = 0.5 + 0.5*cos(iTime + uv.xyx + vec3(0,2,4));
-        gl_FragColor = vec4(col, 1.0);
-      }
-    `;
-
-    sandbox.load(fragShader);
-  </script>
 </body>
 </html>
